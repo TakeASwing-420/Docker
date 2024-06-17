@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: example_user
+      POSTGRES_PASSWORD: example_password
+      POSTGRES_DB: example_db
+    ports:
+      - "5430:5432"  #Use different port mappings other wise, it will conflict with the docker proxy network service
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Mount the named volume at this path in the container
+
+  redis:
+    image: redis:6
+    container_name: redis_container
+    ports:
+      - "6369:6379" #Use different port mappings other wise, it will conflict with the docker proxy network service
+    volumes:
+      - redis_data:/data  # Mount the named volume at this path in the container
+
+volumes:
+  postgres_data:  # Define the named volume
+  redis_data:     # Define the named volume
